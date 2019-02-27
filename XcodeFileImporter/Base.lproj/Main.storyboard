@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11134" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -673,7 +674,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="XcodeFileImporter" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -703,11 +704,54 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="XcodeFileImporter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7du-iV-jlD">
+                                <rect key="frame" x="157" y="222" width="167" height="32"/>
+                                <buttonCell key="cell" type="push" title="Select Xcode project" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eag-fL-GqT">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="selectProjectButtonPressed:" target="XfG-lQ-9wD" id="DWU-ug-V9J"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aMe-nu-lHk">
+                                <rect key="frame" x="167" y="202" width="146" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Selected Xcode Project" id="bvy-UY-LJ1">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vmh-pd-HGo">
+                                <rect key="frame" x="188" y="124" width="105" height="32"/>
+                                <buttonCell key="cell" type="push" title="Import File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4aG-f3-YJZ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="importFileButtonPressed:" target="XfG-lQ-9wD" id="d5f-Np-k3L"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="vmh-pd-HGo" firstAttribute="top" secondItem="aMe-nu-lHk" secondAttribute="bottom" constant="50" id="Eyw-40-0lc"/>
+                            <constraint firstItem="aMe-nu-lHk" firstAttribute="top" secondItem="7du-iV-jlD" secondAttribute="bottom" constant="10" id="IpC-Wf-dl2"/>
+                            <constraint firstItem="7du-iV-jlD" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="KUk-PM-bu5"/>
+                            <constraint firstItem="vmh-pd-HGo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="bjU-oG-1Bf"/>
+                            <constraint firstItem="7du-iV-jlD" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="jQG-up-scs"/>
+                            <constraint firstItem="aMe-nu-lHk" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="rnm-0q-ev2"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="importFileButton" destination="vmh-pd-HGo" id="bZO-ts-b8Z"/>
+                        <outlet property="selectProjectButton" destination="7du-iV-jlD" id="sLc-P0-RPR"/>
+                        <outlet property="selectedProjectLabel" destination="aMe-nu-lHk" id="iqF-Gh-NxJ"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
