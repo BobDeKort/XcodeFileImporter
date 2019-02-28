@@ -35,7 +35,7 @@ class ViewController: NSViewController {
     private func getProject(with path: String) {
         projectURL = URL(fileURLWithPath: path)
         do {
-            project = try XcodeProj(pathString: projectURL!.path)
+            project = try XcodeProj(pathString: projectURL!.relativePath)
         } catch {
             print(error)
         }
@@ -60,19 +60,39 @@ class ViewController: NSViewController {
     }
     @IBAction func importFileButtonPressed(_ sender: Any) {
         print("Import")
-        
         if let project = project {
-            do {
-                if let root = try project.pbxproj.rootGroup() {
-                    try root.addFile(at: Path(staticFileURL.path),
-                                     sourceRoot: Path(projectURL!.path))
-                    
-                    try project.write(path: Path(projectURL!.path))
-                }
-            } catch {
-                print(error)
-            }
+            addNewGroup(project: project, with: [])
         }
+//        if
+//            let project = project,
+//            let root = project.pbxproj.rootObject?.mainGroup,
+//            let rootPath = root.path // -> Nil
+//        {
+//
+//            do {
+//                let file = try root.addFile(at: Path(staticFileURL.path),
+//                                            sourceTree: .group,
+//                                            sourceRoot: Path(rootPath))
+//                print("file name: \(file.name)")
+//
+//            } catch {
+//                print(error)
+//            }
+//
+//
+////
+//
+//            do {
+//                if let root = try project.pbxproj.rootGroup() {
+//                    try root.addFile(at: Path(staticFileURL.path),
+//                                     sourceRoot: Path(projectURL!.path))
+//
+//                    try project.write(path: Path(projectURL!.path))
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        }
     }
     
     override var representedObject: Any? {
@@ -80,7 +100,22 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-
+    
+    private func addNewGroup(project: XcodeProj, with children: [PBXFileElement]) {
+        let newGroup = PBXGroup(children: children,
+                                sourceTree: .group,
+                                name: "Extensions")
+        
+        project.pbxproj.add(object: newGroup)
+        
+        do {
+            if let projectURL = projectURL {
+                print(projectURL.relativePath)
+                try project.write(path: Path(projectURL.relativePath))
+            }
+        } catch {
+            print(error)
+        }
+    }
 }
 
